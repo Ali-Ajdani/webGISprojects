@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\TrianglePerimeterWS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2D0A032B-4FEF-4AF8-ACA5-8B5E862986A6}|TrianglePerimeterWS\\TrianglePerimeterWS.csproj|d:\\triangleperimeterws\\triangleperimeterws\\triangleservice.asmx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D0A032B-4FEF-4AF8-ACA5-8B5E862986A6}|TrianglePerimeterWS\\TrianglePerimeterWS.csproj|solutionrelative:triangleperimeterws\\triangleservice.asmx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TriangleService.asmx.cs",
+              "DocumentMoniker": "D:\\TrianglePerimeterWS\\TrianglePerimeterWS\\TriangleService.asmx.cs",
+              "RelativeDocumentMoniker": "TrianglePerimeterWS\\TriangleService.asmx.cs",
+              "ToolTip": "D:\\TrianglePerimeterWS\\TrianglePerimeterWS\\TriangleService.asmx.cs",
+              "RelativeToolTip": "TrianglePerimeterWS\\TriangleService.asmx.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T19:16:47.19Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
