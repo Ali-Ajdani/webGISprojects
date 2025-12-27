@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Triangle Perimeter Form with WebAPI Call" />
+  <meta name="keywords" content="HTML,CSS,JavaScript,Form,WebAPI,Triangle,Perimeter" />
+  <meta name="author" content="Student" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebAPI | Triangle Perimeter</title>
+
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    .card { max-width: 600px; border: 1px solid #ddd; border-radius: 12px; padding: 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+    label { display:block; margin-top: 10px; }
+    input { width: 100%; padding: 10px; margin-top: 6px; box-sizing: border-box; }
+    button { margin-top: 14px; padding: 10px 12px; width: 100%; cursor: pointer; }
+    .msg { margin-top: 12px; white-space: pre-wrap; }
+    .ok { color: #0a7; }
+    .err { color: #c22; }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>فرم محاسبه محیط مثلث</h2>
+
+    <!-- Triangle perimeter form -->
+    <form id="triForm" action="#" method="post">
+      <div class="row">
+        <div>
+          <label for="a">ضلع a</label>
+          <input id="a" name="a" type="number" min="0" step="any" required />
+        </div>
+        <div>
+          <label for="b">ضلع b</label>
+          <input id="b" name="b" type="number" min="0" step="any" required />
+        </div>
+        <div>
+          <label for="c">ضلع c</label>
+          <input id="c" name="c" type="number" min="0" step="any" required />
+        </div>
+      </div>
+
+      <button id="btn" type="submit">محاسبه</button>
+    </form>
+
+    <!-- Message output -->
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <script>
+    // Get form elements
+    const form = document.getElementById("triForm");
+    const msg = document.getElementById("msg");
+    const btn = document.getElementById("btn");
+
+    // Show result message
+    function setMessage(text, isSuccess) {
+      msg.textContent = text;
+      msg.className = "msg " + (isSuccess ? "ok" : "err");
+    }
+
+    // Validate triangle inequality
+    function isValidTriangle(a, b, c) {
+      return (a + b > c) && (a + c > b) && (b + c > a);
+    }
+
+    // Handle form submit
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      btn.disabled = true;
+      btn.textContent = "Sending...";
+
+      // Read and convert input values
+      const a = Number(form.a.value);
+      const b = Number(form.b.value);
+      const c = Number(form.c.value);
+
+      // Basic numeric validation
+      if (![a, b, c].every(n => Number.isFinite(n) && n > 0)) {
+        setMessage("Invalid input: all sides must be positive numbers.", false);
+        btn.disabled = false;
+        btn.textContent = "محاسبه";
+        return;
+      }
+
+      // Triangle inequality validation
+      if (!isValidTriangle(a, b, c)) {
+        setMessage("Invalid triangle: triangle inequality is not satisfied.", false);
+        btn.disabled = false;
+        btn.textContent = "محاسبه";
+        return;
+      }
+
+      // Compute perimeter locally (the API call is for demonstrating WebAPI request/response)
+      const perimeter = a + b + c;
+
+      try {
+        // Call public WebAPI (httpbin) to demonstrate sending data to an API
+        const response = await fetch("https://httpbin.org/post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ a, b, c, perimeter })
+        });
+
+        const data = await response.json();
+
+        // Display local result + returned data from WebAPI
+        setMessage(
+          "Perimeter calculated successfully ✅\n\nPerimeter = " + perimeter +
+          "\n\nReturned data from WebAPI:\n" +
+          JSON.stringify(data.json, null, 2),
+          true
+        );
+
+      } catch (error) {
+        // Network or connection error
+        setMessage("Network error or no internet connection.", false);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "محاسبه";
+      }
+    });
+  </script>
+</body>
+</html>

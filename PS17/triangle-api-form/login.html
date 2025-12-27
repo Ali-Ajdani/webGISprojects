@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Login Form - WebAPI Call" />
+  <meta name="keywords" content="HTML,CSS,JavaScript,Form,WebAPI,Login" />
+  <meta name="author" content="Student" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login با WebAPI</title>
+
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    .card { max-width: 420px; border: 1px solid #ddd; border-radius: 12px; padding: 16px; }
+    label { display:block; margin-top: 12px; }
+    input { width: 100%; padding: 10px; margin-top: 6px; box-sizing: border-box; }
+    button { margin-top: 14px; padding: 10px 12px; width: 100%; cursor: pointer; }
+    .msg { margin-top: 12px; white-space: pre-wrap; }
+    .ok { color: #0a7; }
+    .err { color: #c22; }
+    .hint { font-size: 12px; color: #666; margin-top: 8px; }
+    code { background: #f6f6f6; padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>فرم ورود (Login)</h2>
+
+    <!-- فرم طبق جزوه: form + method -->
+    <form id="loginForm" action="#" method="post">
+      <label for="email">ایمیل</label>
+      <input id="email" name="email" type="email" required autocomplete="username"
+             placeholder="مثلاً: eve.holt@reqres.in" />
+
+      <label for="password">رمز عبور</label>
+      <input id="password" name="password" type="password" required minlength="3"
+             placeholder="مثلاً: cityslicka" />
+
+      <button id="btn" type="submit">ورود</button>
+
+      <div class="hint">
+        برای تست سریع:<br>
+        email: <code>eve.holt@reqres.in</code><br>
+        password: <code>cityslicka</code>
+      </div>
+    </form>
+
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("msg");
+    const btn = document.getElementById("btn");
+
+    function setMessage(text, ok) {
+      msg.textContent = text;
+      msg.className = "msg " + (ok ? "ok" : "err");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      btn.disabled = true;
+      btn.textContent = "در حال ارسال...";
+      setMessage("", true);
+
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      try {
+        // WebAPI عمومی برای تمرین
+        const res = await fetch("https://httpbin.org/post", {
+
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        setMessage(
+  "Request sent successfully ✅\n\nReturned data from WebAPI:\n" +
+  JSON.stringify(data.json, null, 2),
+  true
+);
+
+
+        // نمایش خروجی API (token)
+        setMessage("ورود موفق ✅\nToken:\n" + data.token, true);
+
+      } catch (err) {
+        setMessage("خطای شبکه یا عدم دسترسی به اینترنت.", false);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "ورود";
+      }
+    });
+  </script>
+</body>
+</html>
