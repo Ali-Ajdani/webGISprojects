@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>محاسبه طول خط</title>
+</head>
+<body>
+
+<h2>محاسبه طول خط</h2>
+<p id="output"></p>
+
+<script>
+  class Line {
+    constructor(x1, y1, x2, y2) {
+      this.x1 = x1;
+      this.y1 = y1;
+      this.x2 = x2;
+      this.y2 = y2;
+    }
+
+    length() {
+      return Math.sqrt(
+        Math.pow(this.x2 - this.x1, 2) +
+        Math.pow(this.y2 - this.y1, 2)
+      );
+    }
+  }
+
+  // دریافت مقادیر از کاربر
+  var x1 = parseFloat(prompt("مختصات x نقطه شروع را وارد کنید:"));
+  var y1 = parseFloat(prompt("مختصات y نقطه شروع را وارد کنید:"));
+  var x2 = parseFloat(prompt("مختصات x نقطه پایان را وارد کنید:"));
+  var y2 = parseFloat(prompt("مختصات y نقطه پایان را وارد کنید:"));
+
+  // تعریف یک نمونه از کلاس Line
+  var myLine = new Line(x1, y1, x2, y2);
+
+  // نمایش فاصله به کاربر
+  document.getElementById("output").innerHTML =
+    "طول خط برابر است با: " + myLine.length().toFixed(2);
+</script>
+
+</body>
+</html>
